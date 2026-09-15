@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Model Canvas | Flowers & Waffles</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff8fb; color: #333; }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+            color: white; text-align: center; padding: 50px 20px 40px;
+        }
+        .header h1 { font-size: 2.2rem; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 1rem; margin-bottom: 20px; }
+        .back-btn {
+            display: inline-block; background: white; color: #ff4d6d;
+            padding: 9px 22px; border-radius: 25px; text-decoration: none;
+            font-weight: bold; font-size: 0.9rem; transition: 0.2s;
+        }
+        .back-btn:hover { background: #fff0f3; }
+
+        /* REFERENCE */
+        .reference {
+            background: #ffd6e0; color: #7d1f35; text-align: center;
+            padding: 10px; font-size: 0.85rem; font-weight: bold;
+        }
+
+        /* BMC GRID */
+        .bmc-wrapper { padding: 40px 30px; max-width: 1300px; margin: 0 auto; }
+        .bmc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 15px;
+        }
+
+        /* CARDS */
+        .bmc-card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            border-top: 4px solid #ff8fab;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .bmc-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+
+        .bmc-card.partners  { border-top-color: #9b59b6; grid-column: 1; grid-row: 1 / 3; }
+        .bmc-card.activities { border-top-color: #3498db; grid-column: 2; grid-row: 1; }
+        .bmc-card.resources  { border-top-color: #2ecc71; grid-column: 2; grid-row: 2; }
+        .bmc-card.value      { border-top-color: #ff4d6d; grid-column: 3; grid-row: 1 / 3; }
+        .bmc-card.customer-rel { border-top-color: #e67e22; grid-column: 4; grid-row: 1; }
+        .bmc-card.channels   { border-top-color: #1abc9c; grid-column: 4; grid-row: 2; }
+        .bmc-card.segments   { border-top-color: #e74c3c; grid-column: 5; grid-row: 1 / 3; }
+        .bmc-card.costs      { border-top-color: #7f8c8d; grid-column: 1 / 4; grid-row: 3; }
+        .bmc-card.revenue    { border-top-color: #f39c12; grid-column: 4 / 6; grid-row: 3; }
+
+        .bmc-card h3 {
+            font-size: 0.75rem; font-weight: bold; letter-spacing: 1.5px;
+            text-transform: uppercase; margin-bottom: 14px; opacity: 0.6;
+        }
+        .bmc-card h2 { font-size: 1.05rem; margin-bottom: 14px; color: #2d2d2d; }
+        .bmc-card ul { list-style: none; padding: 0; }
+        .bmc-card ul li {
+            padding: 7px 0; border-bottom: 1px solid #f5f5f5;
+            font-size: 0.875rem; color: #555; line-height: 1.5;
+            display: flex; gap: 8px; align-items: flex-start;
+        }
+        .bmc-card ul li:last-child { border-bottom: none; }
+        .bmc-card ul li .dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #ff8fab; flex-shrink: 0; margin-top: 6px;
+        }
+
+        /* BOTTOM ROW */
+        .bmc-bottom { display: grid; grid-template-columns: 3fr 2fr; gap: 15px; margin-top: 15px; }
+
+        /* LEGEND */
+        .legend {
+            display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+            padding: 25px; background: white; border-radius: 16px;
+            margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #555; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+        /* FOOTER */
+        footer { background: #2d2d2d; color: #aaa; text-align: center; padding: 20px; font-size: 0.85rem; }
+        footer a { color: #ff8fab; text-decoration: none; }
+
+        @media (max-width: 900px) {
+            .bmc-grid { grid-template-columns: 1fr 1fr; }
+            .bmc-card { grid-column: auto !important; grid-row: auto !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📊 Business Model Canvas</h1>
+    <p>Flowers & Waffles — E-Commerce Startup Model</p>
+    <a href="landing.html" class="back-btn">← Back to Home</a>
+</div>
+
+<div class="reference">
+    📚 Reference: Eckersley – Chapter 3 | Lab Assignment 6: E-Business Model Development | Tools: BMC Framework
+</div>
+
+<!-- LEGEND -->
+<div class="bmc-wrapper">
+<div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div> Key Partners</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3498db"></div> Key Activities</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2ecc71"></div> Key Resources</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff4d6d"></div> Value Proposition</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e67e22"></div> Customer Relationships</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1abc9c"></div> Channels</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> Customer Segments</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7f8c8d"></div> Cost Structure</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f39c12"></div> Revenue Streams</div>
+</div>
+
+<!-- MAIN BMC GRID -->
+<div class="bmc-grid">
+
+    <!-- KEY PARTNERS -->
+    <div class="bmc-card partners">
+        <h3>🤝 Block 1</h3>
+        <h2>Key Partners</h2>
+        <ul>
+            <li><span class="dot"></span>Local flower farms & nurseries supplying fresh-cut flowers daily</li>
+            <li><span class="dot"></span>Certified bakeries and waffle ingredient suppliers</li>
+            <li><span class="dot"></span>Razorpay — payment gateway partner</li>
+            <li><span class="dot"></span>MongoDB Atlas — cloud database hosting</li>
+            <li><span class="dot"></span>Delivery & logistics partners for last-mile delivery</li>
+            <li><span class="dot"></span>Email service provider (Gmail / Nodemailer) for order notifications</li>
+            <li><span class="dot"></span>Social media influencers for marketing campaigns</li>
+        </ul>
+    </div>
+
+    <!-- KEY ACTIVITIES -->
+    <div class="bmc-card activities">
+        <h3>⚙️ Block 2</h3>
+        <h2>Key Activities</h2>
+        <ul>
+            <li><span class="dot"></span>Sourcing and quality-checking fresh flowers daily</li>
+            <li><span class="dot"></span>Baking and preparing waffles fresh each morning</li>
+            <li><span class="dot"></span>Managing the e-commerce platform (products, orders)</li>
+            <li><span class="dot"></span>Processing payments and managing order fulfilment</li>
+            <li><span class="dot"></span>Running digital marketing campaigns (SEO, email)</li>
+        </ul>
+    </div>
+
+    <!-- KEY RESOURCES -->
+    <div class="bmc-card resources">
+        <h3>🏗️ Block 3</h3>
+        <h2>Key Resources</h2>
+        <ul>
+            <li><span class="dot"></span>E-commerce website (Node.js + MongoDB)</li>
+            <li><span class="dot"></span>Product inventory (flowers + waffle ingredients)</li>
+            <li><span class="dot"></span>Admin dashboard for product & order management</li>
+            <li><span class="dot"></span>Customer database with login system</li>
+            <li><span class="dot"></span>Delivery fleet / partner network</li>
+        </ul>
+    </div>
+
+    <!-- VALUE PROPOSITION -->
+    <div class="bmc-card value">
+        <h3>💎 Block 4</h3>
+        <h2>Value Proposition</h2>
+        <ul>
+            <li><span class="dot"></span><b>Convenience:</b> One platform to order both fresh flowers and freshly baked waffles online</li>
+            <li><span class="dot"></span><b>Freshness:</b> Flowers handpicked daily, waffles baked every morning — guaranteed freshness</li>
+            <li><span class="dot"></span><b>Gifting:</b> Perfect combination for gifting — a bouquet + a waffle box for any occasion</li>
+            <li><span class="dot"></span><b>Transparency:</b> Real-time order status tracking and email confirmations</li>
+            <li><span class="dot"></span><b>Security:</b> bcrypt-secured login, brute-force protection, Razorpay secure payments</li>
+            <li><span class="dot"></span><b>Personalisation:</b> Customer accounts with order history and tailored experience</li>
+        </ul>
+    </div>
+
+    <!-- CUSTOMER RELATIONSHIPS -->
+    <div class="bmc-card customer-rel">
+        <h3>💬 Block 5</h3>
+        <h2>Customer Relationships</h2>
+        <ul>
+            <li><span class="dot"></span>Personalised customer accounts with order history</li>
+            <li><span class="dot"></span>Automated welcome & order confirmation emails</li>
+            <li><span class="dot"></span>Real-time order status (Pending → Processing → Delivered)</li>
+            <li><span class="dot"></span>SEO-driven content to attract organic traffic</li>
+        </ul>
+    </div>
+
+    <!-- CHANNELS -->
+    <div class="bmc-card channels">
+        <h3>📡 Block 6</h3>
+        <h2>Channels</h2>
+        <ul>
+            <li><span class="dot"></span>Direct website: flowersandwaffles.com</li>
+            <li><span class="dot"></span>Email marketing (order emails, promotions)</li>
+            <li><span class="dot"></span>Social media (Instagram, WhatsApp)</li>
+            <li><span class="dot"></span>Google Search (SEO-optimised pages)</li>
+        </ul>
+    </div>
+
+    <!-- CUSTOMER SEGMENTS -->
+    <div class="bmc-card segments">
+        <h3>👥 Block 7</h3>
+        <h2>Customer Segments</h2>
+        <ul>
+            <li><span class="dot"></span><b>Gift buyers</b> — looking for unique flower + waffle gift combos for birthdays, anniversaries</li>
+            <li><span class="dot"></span><b>Waffle lovers</b> — food enthusiasts who want fresh gourmet waffles delivered</li>
+            <li><span class="dot"></span><b>Flower lovers</b> — people who regularly buy fresh flowers for home or gifting</li>
+            <li><span class="dot"></span><b>Corporate clients</b> — offices ordering in bulk for events or employee gifting</li>
+            <li><span class="dot"></span><b>Health-conscious</b> — customers interested in healthy waffle options</li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- BOTTOM ROW -->
+<div class="bmc-bottom">
+
+    <!-- COST STRUCTURE -->
+    <div class="bmc-card costs" style="border-top-color:#7f8c8d">
+        <h3>💸 Block 8</h3>
+        <h2>Cost Structure</h2>
+        <ul style="display:grid;grid-template-columns:1fr 1fr;gap:0 20px">
+            <li><span class="dot"></span>Flower sourcing and procurement costs</li>
+            <li><span class="dot"></span>Waffle ingredients and bakery operations</li>
+            <li><span class="dot"></span>Website hosting and cloud database (MongoDB Atlas)</li>
+            <li><span class="dot"></span>Payment gateway transaction fees (Razorpay ~2%)</li>
+            <li><span class="dot"></span>Delivery and logistics costs</li>
+            <li><span class="dot"></span>Digital marketing and SEO</li>
+            <li><span class="dot"></span>Staff salaries (bakers, delivery, admin)</li>
+            <li><span class="dot"></span>Email service and notification system</li>
+        </ul>
+    </div>
+
+    <!-- REVENUE STREAMS -->
+    <div class="bmc-card revenue" style="border-top-color:#f39c12">
+        <h3>💰 Block 9</h3>
+        <h2>Revenue Streams</h2>
+        <ul>
+            <li><span class="dot"></span><b>Product sales</b> — direct revenue from flower and waffle orders</li>
+            <li><span class="dot"></span><b>Gift bundles</b> — premium pricing on flower + waffle combo packages</li>
+            <li><span class="dot"></span><b>Bulk / corporate orders</b> — higher volume at negotiated rates</li>
+            <li><span class="dot"></span><b>Seasonal specials</b> — premium pricing on Valentine's Day, Diwali, etc.</li>
+            <li><span class="dot"></span><b>Delivery charges</b> — nominal fee for same-day or express delivery</li>
+        </ul>
+    </div>
+
+</div>
+</div>
+
+<footer>
+    📊 Business Model Canvas — Flowers & Waffles | <a href="landing.html">← Back to Home</a> | Lab Assignment 6 · Eckersley Chapter 3
+</footer>
+
+</body>
+</html>

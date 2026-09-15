@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Login or sign up to Flowers &amp; Waffles to shop and track your orders.">
+    <meta name="keywords" content="flowers waffles login, customer login, sign up flowers waffles">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Customer Login | Flowers & Waffles</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tab-btns { display: flex; justify-content: center; margin-bottom: 20px; gap: 0; }
+        .tab-btn {
+            padding: 10px 30px;
+            border: 2px solid #ff8fab;
+            background: white;
+            color: #ff8fab;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+            border-radius: 0;
+        }
+        .tab-btn:first-child { border-radius: 20px 0 0 20px; }
+        .tab-btn:last-child { border-radius: 0 20px 20px 0; }
+        .tab-btn.active { background: #ff8fab; color: white; }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        .msg { margin-top: 10px; font-size: 0.9rem; }
+        .msg.error { color: #e74c3c; }
+        .msg.success { color: #27ae60; }
+        a.back { display: block; margin-top: 15px; color: #ff8fab; text-decoration: none; font-size: 0.9rem; }
+    </style>
+</head>
+<body class="login-body">
+<div class="login-box">
+    <h2>Welcome 🌸</h2>
+
+    <div class="tab-btns">
+        <button class="tab-btn active" onclick="showTab('login')">Login</button>
+        <button class="tab-btn" onclick="showTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="form-section active" id="loginSection">
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="customerLogin()">Login 🌸</button>
+        <p class="msg" id="loginMsg"></p>
+    </div>
+
+    <!-- SIGNUP -->
+    <div class="form-section" id="signupSection">
+        <input type="text" id="signupName" placeholder="Your Name">
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
+        <button onclick="customerSignup()">Create Account 🧇</button>
+        <p class="msg" id="signupMsg"></p>
+    </div>
+
+    <a href="landing.html" class="back">← Back to Home</a>
+</div>
+
+<script>
+function showTab(tab) {
+    document.getElementById("loginSection").classList.toggle("active", tab === "login");
+    document.getElementById("signupSection").classList.toggle("active", tab === "signup");
+    document.querySelectorAll(".tab-btn").forEach((btn, i) => {
+        btn.classList.toggle("active", (i === 0 && tab === "login") || (i === 1 && tab === "signup"));
+    });
+}
+
+async function customerLogin() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const msg = document.getElementById("loginMsg");
+
+    if (!email || !password) { msg.className = "msg error"; msg.textContent = "Please fill all fields"; return; }
+
+    const res = await fetch("http://localhost:7000/customer/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+        localStorage.setItem("customer", JSON.stringify(data.customer));
+        window.location.href = "index.html";
+    } else {
+        msg.className = "msg error";
+        msg.textContent = data.error || "Login failed";
+    }
+}
+
+async function customerSignup() {
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const msg = document.getElementById("signupMsg");
+
+    if (!name || !email || !password) { msg.className = "msg error"; msg.textContent = "Please fill all fields"; return; }
+    if (password.length < 6) { msg.className = "msg error"; msg.textContent = "Password must be at least 6 characters"; return; }
+
+    const res = await fetch("http://localhost:7000/customer/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+        msg.className = "msg success";
+        msg.textContent = "Account created! Logging you in...";
+        localStorage.setItem("customer", JSON.stringify(data.customer));
+        setTimeout(() => window.location.href = "index.html", 1000);
+    } else {
+        msg.className = "msg error";
+        msg.textContent = data.error || "Signup failed";
+    }
+}
+</script>
+</body>
+</html>

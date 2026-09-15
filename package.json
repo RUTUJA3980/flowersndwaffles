@@ -1,0 +1,21 @@
+{
+  "name": "flowers-and-waffle",
+  "version": "1.0.0",
+  "description": "Fresh flowers and waffles e-commerce store",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["flowers", "waffles", "ecommerce"],
+  "author": "Flowers Flowers & Waffles Waffle",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.2.4",
+    "nodemailer": "^6.9.9"
+  }
+}

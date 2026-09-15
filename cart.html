@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your shopping cart at Flowers & Waffles. Review items and checkout securely.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Your Cart | Flowers & Waffles</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff8fb; color: #333; }
+
+        .top-bar {
+            background: #ff4d6d; color: white;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 30px;
+        }
+        .top-bar .logo { font-size: 1.1rem; font-weight: bold; }
+        .top-bar button { background: white; color: #ff4d6d; border: none; border-radius: 20px; padding: 6px 16px; cursor: pointer; font-weight: bold; }
+
+        .page-title { text-align: center; padding: 35px 20px 10px; }
+        .page-title h1 { font-size: 1.8rem; color: #ff4d6d; }
+        .page-title p { color: #aaa; margin-top: 5px; }
+
+        .cart-layout {
+            max-width: 900px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 360px;
+            gap: 25px; padding: 20px 20px 50px;
+        }
+
+        /* CART ITEMS */
+        .cart-items-panel {}
+        .cart-empty { text-align: center; padding: 60px; color: #bbb; }
+        .cart-empty .icon { font-size: 3rem; margin-bottom: 15px; }
+        .cart-empty a { color: #ff4d6d; text-decoration: none; font-weight: bold; }
+
+        .cart-card {
+            background: white; border-radius: 15px; padding: 15px;
+            display: flex; gap: 15px; align-items: center;
+            margin-bottom: 15px; box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+        .cart-card img { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; flex-shrink: 0; }
+        .cart-card .info { flex: 1; }
+        .cart-card .info h3 { font-size: 0.95rem; margin-bottom: 5px; }
+        .cart-card .info .price { color: #ff4d6d; font-weight: bold; }
+        .cart-card .remove-btn {
+            background: #ffe0e0; color: #c0392b; border: none;
+            border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem;
+        }
+        .cart-card .remove-btn:hover { background: #ffb3b3; }
+
+        /* CHECKOUT PANEL */
+        .checkout-panel { position: sticky; top: 20px; }
+        .checkout-box {
+            background: white; border-radius: 18px; padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .checkout-box h2 { font-size: 1.1rem; color: #2d2d2d; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #ffd6e0; }
+        .checkout-box input {
+            display: block; width: 100%; padding: 10px 14px;
+            border: 1px solid #ddd; border-radius: 10px;
+            margin-bottom: 12px; font-size: 0.9rem;
+        }
+        .checkout-box input:focus { outline: none; border-color: #ff8fab; }
+        .total-row {
+            display: flex; justify-content: space-between;
+            font-weight: bold; font-size: 1.1rem; color: #2d2d2d;
+            padding: 15px 0; border-top: 2px solid #ffd6e0; margin-top: 5px; margin-bottom: 15px;
+        }
+        .total-row span:last-child { color: #ff4d6d; }
+        .pay-btn {
+            width: 100%; padding: 13px; border: none; border-radius: 12px;
+            background: #ff4d6d; color: white; font-size: 1rem;
+            font-weight: bold; cursor: pointer; transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(255,77,109,0.3);
+        }
+        .pay-btn:hover { background: #e0405d; }
+        .clear-btn {
+            width: 100%; padding: 10px; border: 2px solid #ddd;
+            border-radius: 12px; background: white; color: #888;
+            font-size: 0.9rem; cursor: pointer; margin-top: 10px; transition: 0.2s;
+        }
+        .clear-btn:hover { border-color: #ff8fab; color: #ff4d6d; }
+
+        @media (max-width: 700px) {
+            .cart-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="logo">🌸 Flowers & Waffles 🧇</div>
+    <button onclick="window.location.href='index.html'">← Continue Shopping</button>
+</div>
+
+<div class="page-title">
+    <h1>🛒 Your Cart</h1>
+    <p id="cartSubtitle"></p>
+</div>
+
+<div class="cart-layout">
+    <!-- ITEMS -->
+    <div class="cart-items-panel" id="cartItems"></div>
+
+    <!-- CHECKOUT -->
+    <div class="checkout-panel">
+        <div class="checkout-box">
+            <h2>💳 Checkout</h2>
+            <input id="name" placeholder="Your full name" required>
+            <input id="address" placeholder="Delivery address" required>
+            <input id="phone" placeholder="Phone number" required>
+            <div class="total-row">
+                <span>Total</span>
+                <span>₹<span id="totalPrice">0</span></span>
+            </div>
+            <button class="pay-btn" onclick="payNow()">Pay Now 💳</button>
+            <button class="clear-btn" onclick="clearCart()">🗑️ Clear Cart</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="cart.js"></script>
+</body>
+</html>

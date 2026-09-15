@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login 🌸</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+
+<div class="login-box">
+    <h2>Admin Login 🔐</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginMsg" style="color:#e74c3c;font-size:0.9rem;margin-top:10px"></p>
+</div>
+
+<script>
+async function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    const msg = document.getElementById("loginMsg");
+
+    try {
+        const response = await fetch("/admin/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: user, password: pass })
+        });
+        const result = await response.json();
+
+        fetch("/admin/login-log", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ success: result.success, username: user })
+        });
+
+        if (result.success) {
+            localStorage.setItem("admin", "true");
+            window.location.href = "admin.html";
+        } else {
+            msg.textContent = "Wrong credentials ❌";
+        }
+    } catch (error) {
+        msg.textContent = "Unable to connect to server ❌";
+    }
+}
+</script>
+</body>
+</html>

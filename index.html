@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse and buy fresh flowers and waffles at Flowers & Waffles. Add to cart and checkout securely.">
+    <meta name="keywords" content="buy flowers, buy waffles, fresh flowers, waffles online, flower shop, waffle shop">
+    <meta name="author" content="Flowers & Waffles">
+    <meta property="og:title" content="Shop - Flowers & Waffles">
+    <meta property="og:description" content="Browse fresh flowers and waffles. Fast delivery, best quality.">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <title>Shop | Flowers & Waffles</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff8fb; color: #333; }
+
+        /* TOP BAR */
+        .top-bar {
+            position: sticky; top: 0; z-index: 100;
+            background: #ff4d6d; color: white;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .top-bar .logo { font-size: 1.15rem; font-weight: bold; }
+        .top-bar .right { display: flex; align-items: center; gap: 12px; }
+        .top-bar .username { font-size: 0.9rem; opacity: 0.9; }
+        .top-bar a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .top-bar button {
+            margin: 0; padding: 6px 16px; font-size: 0.85rem;
+            background: white; color: #ff4d6d; border-radius: 20px; border: none; cursor: pointer;
+        }
+        .cart-btn {
+            background: rgba(255,255,255,0.2) !important; color: white !important;
+            border: 2px solid rgba(255,255,255,0.6) !important; border-radius: 20px;
+            padding: 6px 16px; font-size: 0.85rem; font-weight: bold; cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* SHOP HEADER */
+        .shop-header {
+            background: linear-gradient(135deg, #fff0f5, #ffe8f0);
+            padding: 40px 30px 30px; text-align: center;
+        }
+        .shop-header h1 { font-size: 2rem; color: #ff4d6d; margin-bottom: 8px; }
+        .shop-header p { color: #888; margin-bottom: 20px; }
+        .search-bar {
+            width: 100%; max-width: 480px;
+            padding: 12px 20px; border: 2px solid #ffd6e0;
+            border-radius: 30px; font-size: 1rem;
+            outline: none; background: white;
+            transition: border-color 0.2s;
+        }
+        .search-bar:focus { border-color: #ff4d6d; }
+
+        /* SECTION TABS */
+        .section-tabs {
+            display: flex; justify-content: center; gap: 15px;
+            padding: 25px 20px 10px; flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 10px 28px; border-radius: 30px; border: 2px solid #ff8fab;
+            background: white; color: #ff4d6d; font-weight: bold;
+            font-size: 0.95rem; cursor: pointer; transition: 0.2s;
+        }
+        .tab-btn.active { background: #ff4d6d; color: white; border-color: #ff4d6d; }
+        .tab-btn:hover { background: #ff4d6d; color: white; border-color: #ff4d6d; }
+
+        /* PRODUCT SECTIONS */
+        .product-section { padding: 20px 30px 50px; max-width: 1200px; margin: 0 auto; }
+        .section-heading {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 25px; padding-bottom: 12px;
+            border-bottom: 3px solid #ffd6e0;
+        }
+        .section-heading h2 { font-size: 1.5rem; color: #2d2d2d; }
+        .section-heading .count {
+            background: #ffd6e0; color: #ff4d6d; font-size: 0.8rem;
+            padding: 3px 10px; border-radius: 20px; font-weight: bold;
+        }
+
+        /* PRODUCT GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        /* PRODUCT CARD */
+        .product-card {
+            background: white; border-radius: 18px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(255,77,109,0.18); }
+        .product-card img { width: 100%; height: 170px; object-fit: cover; }
+        .product-card .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; }
+        .product-card h3 { font-size: 0.95rem; color: #2d2d2d; margin-bottom: 5px; }
+        .product-card .desc { font-size: 0.8rem; color: #999; margin-bottom: 10px; flex: 1; line-height: 1.5; }
+        .product-card .price { font-size: 1.15rem; font-weight: bold; color: #ff4d6d; margin-bottom: 12px; }
+        .product-card .add-btn {
+            width: 100%; padding: 9px; border: none; border-radius: 12px;
+            background: #ff4d6d; color: white; font-weight: bold;
+            font-size: 0.9rem; cursor: pointer; transition: background 0.2s;
+        }
+        .product-card .add-btn:hover { background: #e0405d; }
+        .product-card .add-btn:active { transform: scale(0.97); }
+
+        /* WAFFLE CARD ACCENT */
+        .waffle-card .price { color: #e67e22; }
+        .waffle-card .add-btn { background: #e67e22; }
+        .waffle-card .add-btn:hover { background: #ca6f1e; }
+        .waffle-card:hover { box-shadow: 0 12px 30px rgba(230,126,34,0.18); }
+
+        /* EMPTY STATE */
+        .empty-state { text-align: center; padding: 60px; color: #bbb; }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 15px; }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #2d2d2d; color: white; padding: 12px 22px;
+            border-radius: 12px; font-size: 0.9rem;
+            transform: translateY(100px); opacity: 0;
+            transition: all 0.4s; z-index: 999;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+    </style>
+</head>
+<body>
+
+<script>
+    const customer = JSON.parse(localStorage.getItem("customer"));
+    if (!customer) { window.location.href = "landing.html"; }
+</script>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div class="logo">🌸 Flowers & Waffles 🧇</div>
+    <div class="right">
+        <span class="username" id="customerName"></span>
+        <button onclick="window.location.href='my-orders.html'">📦 My Orders</button>
+        <a href="cart.html" class="cart-btn">🛒 Cart (<span id="cartCount">0</span>)</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<!-- SHOP HEADER -->
+<div class="shop-header">
+    <h1>🛍️ Shop Fresh</h1>
+    <p>Freshly picked flowers & freshly baked waffles — delivered to your door</p>
+    <input type="text" class="search-bar" id="searchBar" placeholder="🔍 Search flowers or waffles...">
+</div>
+
+<!-- SECTION TABS -->
+<div class="section-tabs">
+    <button class="tab-btn active" onclick="filterSection('all', this)">🌸🧇 All Products</button>
+    <button class="tab-btn" onclick="filterSection('flower', this)">🌸 Flowers</button>
+    <button class="tab-btn" onclick="filterSection('waffle', this)">🧇 Waffles</button>
+</div>
+
+<!-- PRODUCT SECTIONS -->
+<div class="product-section">
+
+    <!-- FLOWERS -->
+    <div id="flowers-section">
+        <div class="section-heading">
+            <span style="font-size:1.5rem">🌸</span>
+            <h2>Fresh Flowers</h2>
+            <span class="count" id="flower-count">0 items</span>
+        </div>
+        <div class="products-grid" id="flower-list"></div>
+    </div>
+
+    <div style="height: 40px"></div>
+
+    <!-- WAFFLES -->
+    <div id="waffles-section">
+        <div class="section-heading">
+            <span style="font-size:1.5rem">🧇</span>
+            <h2>Fresh Waffles</h2>
+            <span class="count" id="waffle-count">0 items</span>
+        </div>
+        <div class="products-grid" id="waffle-list"></div>
+    </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // Auth
+    const cust = JSON.parse(localStorage.getItem("customer"));
+    document.getElementById("customerName").textContent = "Hi, " + cust.name + " 👋";
+
+    function logout() {
+        localStorage.removeItem("customer");
+        window.location.href = "landing.html";
+    }
+
+    // Cart
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    updateCartCount();
+
+    function updateCartCount() {
+        document.getElementById("cartCount").innerText = cart.length;
+    }
+
+    function addToCart(name, price, image) {
+        cart.push({ name, price, image });
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        showToast(name + " added to cart 🛒");
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2500);
+    }
+
+    // Waffle keywords to separate sections
+    const waffleKeywords = ["waffle", "buttermilk", "choco", "strawberry", "protein", "wheat", "classic butter"];
+
+    function isWaffle(name) {
+        return waffleKeywords.some(k => name.toLowerCase().includes(k));
+    }
+
+    function makeCard(product) {
+        const isW = isWaffle(product.name);
+        const card = document.createElement("div");
+        card.classList.add("product-card");
+        if (isW) card.classList.add("waffle-card");
+        card.dataset.name = product.name.toLowerCase();
+        card.dataset.type = isW ? "waffle" : "flower";
+
+        card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/220x170?text=No+Image'">
+            <div class="card-body">
+                <h3>${product.name}</h3>
+                <p class="desc">${product.description || ''}</p>
+                <div class="price">₹${product.price}</div>
+                <button class="add-btn" onclick="addToCart('${product.name.replace(/'/g,"\\'")}', ${product.price}, '${product.image}')">
+                    Add to Cart 🛒
+                </button>
+            </div>
+        `;
+        return card;
+    }
+
+    // Load products from backend
+    fetch("http://localhost:7000/products")
+    .then(res => res.json())
+    .then(data => {
+        const flowerList = document.getElementById("flower-list");
+        const waffleList = document.getElementById("waffle-list");
+        let flowerCount = 0, waffleCount = 0;
+
+        data.forEach(product => {
+            const card = makeCard(product);
+            if (isWaffle(product.name)) {
+                waffleList.appendChild(card);
+                waffleCount++;
+            } else {
+                flowerList.appendChild(card);
+                flowerCount++;
+            }
+        });
+
+        document.getElementById("flower-count").textContent = flowerCount + " items";
+        document.getElementById("waffle-count").textContent = waffleCount + " items";
+
+        if (flowerCount === 0) flowerList.innerHTML = '<div class="empty-state"><div class="icon">🌸</div><p>No flowers yet</p></div>';
+        if (waffleCount === 0) waffleList.innerHTML = '<div class="empty-state"><div class="icon">🧇</div><p>No waffles yet</p></div>';
+    })
+    .catch(() => {
+        document.getElementById("flower-list").innerHTML = '<p style="color:red;padding:20px">Error loading products. Is the server running?</p>';
+    });
+
+    // Search
+    document.getElementById("searchBar").addEventListener("keyup", function() {
+        const val = this.value.toLowerCase();
+        document.querySelectorAll(".product-card").forEach(card => {
+            card.style.display = card.dataset.name.includes(val) ? "flex" : "none";
+        });
+    });
+
+    // Filter by section
+    function filterSection(type, btn) {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const flowersSection = document.getElementById("flowers-section");
+        const wafflesSection = document.getElementById("waffles-section");
+
+        if (type === "all") {
+            flowersSection.style.display = "block";
+            wafflesSection.style.display = "block";
+        } else if (type === "flower") {
+            flowersSection.style.display = "block";
+            wafflesSection.style.display = "none";
+        } else {
+            flowersSection.style.display = "none";
+            wafflesSection.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>

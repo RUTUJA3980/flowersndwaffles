@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flowers & Waffles - Shop freshly picked flowers and freshly baked waffles online. Fast delivery, best prices.">
+    <meta name="keywords" content="flowers online, waffles, buy flowers, fresh waffles, flower shop, waffle delivery">
+    <meta property="og:title" content="Flowers & Waffles 🌸🧇">
+    <meta property="og:description" content="Shop freshly picked flowers and freshly baked waffles online.">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <title>Flowers & Waffles 🌸🧇</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 50px; 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        .nav-logo { font-size: 1.4rem; font-weight: bold; color: #ff4d6d; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; transition: color 0.2s; }
+        .nav-links a:hover { color: #ff4d6d; }
+        .nav-btn {
+            background: #ff4d6d; color: white !important;
+            padding: 9px 22px; border-radius: 25px; font-weight: bold;
+            transition: background 0.2s !important;
+        }
+        .nav-btn:hover { background: #e0405d !important; }
+        .nav-btn-outline {
+            border: 2px solid #ff4d6d; color: #ff4d6d !important;
+            padding: 7px 20px; border-radius: 25px; font-weight: bold;
+        }
+        .nav-btn-outline:hover { background: #fff0f3 !important; }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe8f0 40%, #ffd6e7 100%);
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 100px 20px 60px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255,143,171,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,77,109,0.2) 0%, transparent 50%);
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 750px; }
+        .hero-badge {
+            display: inline-block; background: #ffd6e0; color: #ff4d6d;
+            padding: 6px 18px; border-radius: 25px; font-size: 0.85rem;
+            font-weight: bold; margin-bottom: 20px; letter-spacing: 1px;
+        }
+        .hero h1 { font-size: 3.8rem; color: #2d2d2d; line-height: 1.1; margin-bottom: 20px; }
+        .hero h1 span { color: #ff4d6d; }
+        .hero p { font-size: 1.15rem; color: #666; line-height: 1.8; margin-bottom: 35px; max-width: 550px; margin-left: auto; margin-right: auto; }
+        .hero-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: #ff4d6d; color: white; padding: 14px 35px;
+            border-radius: 30px; text-decoration: none; font-weight: bold;
+            font-size: 1rem; transition: 0.3s; box-shadow: 0 8px 25px rgba(255,77,109,0.35);
+        }
+        .btn-primary:hover { background: #e0405d; transform: translateY(-2px); }
+        .btn-secondary {
+            background: white; color: #ff4d6d; padding: 14px 35px;
+            border-radius: 30px; text-decoration: none; font-weight: bold;
+            font-size: 1rem; border: 2px solid #ff4d6d; transition: 0.3s;
+        }
+        .btn-secondary:hover { background: #fff0f3; transform: translateY(-2px); }
+        .hero-emojis { font-size: 5rem; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: #ff4d6d; color: white;
+            display: flex; justify-content: center; gap: 60px;
+            padding: 25px 20px; flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat-num { font-size: 1.8rem; font-weight: bold; }
+        .stat-label { font-size: 0.85rem; opacity: 0.85; margin-top: 3px; }
+
+        /* ── SECTION COMMON ── */
+        section { padding: 80px 50px; }
+        .section-tag {
+            display: inline-block; background: #ffd6e0; color: #ff4d6d;
+            padding: 5px 16px; border-radius: 20px; font-size: 0.8rem;
+            font-weight: bold; letter-spacing: 1px; margin-bottom: 12px;
+        }
+        .section-title { font-size: 2.2rem; color: #2d2d2d; margin-bottom: 10px; }
+        .section-sub { color: #888; font-size: 1rem; margin-bottom: 40px; }
+
+        /* ── FLOWERS SECTION ── */
+        .flowers-section { background: #fff8fb; }
+        .flowers-section .section-header { text-align: center; }
+        .flowers-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px; max-width: 1100px; margin: 0 auto;
+        }
+        .flower-card {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 5px 20px rgba(255,77,109,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .flower-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(255,77,109,0.2); }
+        .flower-card img { width: 100%; height: 180px; object-fit: cover; }
+        .flower-card-body { padding: 18px; }
+        .flower-card-body h3 { font-size: 1rem; color: #2d2d2d; margin-bottom: 5px; }
+        .flower-card-body .price { color: #ff4d6d; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
+        .flower-card-body p { color: #888; font-size: 0.85rem; margin-bottom: 15px; }
+        .card-tag { display: inline-block; background: #fff0f5; color: #ff4d6d; padding: 3px 10px; border-radius: 10px; font-size: 0.75rem; }
+
+        /* ── WAFFLES SECTION ── */
+        .waffles-section { background: #fffbf5; }
+        .waffles-section .section-header { text-align: center; }
+        .waffles-section .section-tag { background: #ffecd6; color: #e67e22; }
+        .waffles-section .section-title { color: #2d2d2d; }
+        .waffles-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px; max-width: 1100px; margin: 0 auto;
+        }
+        .waffle-card {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 5px 20px rgba(230,126,34,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .waffle-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(230,126,34,0.2); }
+        .waffle-card img { width: 100%; height: 200px; object-fit: cover; }
+        .waffle-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .waffle-card-body h3 { font-size: 1.05rem; color: #2d2d2d; margin-bottom: 6px; }
+        .waffle-card-body .price { color: #e67e22; font-weight: bold; font-size: 1.15rem; margin-bottom: 8px; }
+        .waffle-card-body p { color: #888; font-size: 0.85rem; flex: 1; margin-bottom: 12px; }
+        .waffle-tag { display: inline-block; background: #fff5e6; color: #e67e22; padding: 3px 10px; border-radius: 10px; font-size: 0.75rem; }
+
+        /* ── WHY US ── */
+        .why-section { background: white; text-align: center; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; }
+        .feature { padding: 30px 20px; background: #fff8fb; border-radius: 20px; transition: transform 0.3s; }
+        .feature:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .feature h3 { color: #2d2d2d; margin-bottom: 8px; font-size: 1rem; }
+        .feature p { color: #888; font-size: 0.875rem; line-height: 1.6; }
+
+        /* ── CTA ── */
+        .cta-section {
+            background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+            text-align: center; color: white; padding: 80px 20px;
+        }
+        .cta-section h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 35px; }
+        .cta-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-white { background: white; color: #ff4d6d; padding: 14px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: 0.3s; }
+        .btn-white:hover { background: #fff0f3; transform: translateY(-2px); }
+        .btn-outline-white { border: 2px solid white; color: white; padding: 12px 33px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: 0.3s; }
+        .btn-outline-white:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+        /* ── BMC LINK ── */
+        .bmc-strip {
+            background: #f8f0f4; text-align: center; padding: 25px;
+            border-top: 1px solid #ffd6e0;
+        }
+        .bmc-strip a { color: #ff4d6d; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #2d2d2d; color: #aaa; text-align: center;
+            padding: 30px; font-size: 0.9rem;
+        }
+        footer span { color: #ff8fab; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-logo">🌸 Flowers & Waffles</div>
+    <div class="nav-links">
+        <a href="#flowers">🌸 Flowers</a>
+        <a href="#waffles">🧇 Waffles</a>
+        <a href="#why">Why Us</a>
+        <a href="bmc.html">Business Model</a>
+        <a href="customer-login.html" class="nav-btn-outline">Login</a>
+        <a href="customer-login.html" class="nav-btn">Shop Now</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-emojis">🌸🧇</div>
+        <div class="hero-badge">🚀 NOW ACCEPTING ONLINE ORDERS</div>
+        <h1>Fresh Flowers.<br><span>Warm Waffles.</span><br>Delivered with Love.</h1>
+        <p>From handpicked roses to golden honey waffles — we bring joy to your doorstep. Order online and experience the freshest picks every single day.</p>
+        <div class="hero-btns">
+            <a href="customer-login.html" class="btn-primary">🛍️ Start Shopping</a>
+            <a href="#flowers" class="btn-secondary">Explore Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Happy Customers</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Products Available</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Fresh & Handpicked</div></div>
+    <div class="stat"><div class="stat-num">⭐ 4.9</div><div class="stat-label">Customer Rating</div></div>
+</div>
+
+<!-- FLOWERS SECTION -->
+<section class="flowers-section" id="flowers">
+    <div class="section-header" style="text-align:center;margin-bottom:40px">
+        <div class="section-tag">🌸 FLOWERS</div>
+        <h2 class="section-title">Freshly Picked, Just for You</h2>
+        <p class="section-sub">Handpicked every morning — roses, daisies, lilies and more</p>
+    </div>
+    <div class="flowers-grid">
+        <div class="flower-card">
+            <img src="./images/roses.jpg" alt="Red Roses">
+            <div class="flower-card-body">
+                <h3>Classic Red Roses</h3>
+                <div class="price">₹299</div>
+                <p>A timeless symbol of love. Freshly cut, long-lasting bouquet of 12 stems.</p>
+                <span class="card-tag">🌹 Bestseller</span>
+            </div>
+        </div>
+        <div class="flower-card">
+            <img src="./images/daisy.jpg" alt="Daisies">
+            <div class="flower-card-body">
+                <h3>Sunshine Daisies</h3>
+                <div class="price">₹199</div>
+                <p>Bright and cheerful daisies to light up any room or occasion.</p>
+                <span class="card-tag">🌼 Popular</span>
+            </div>
+        </div>
+        <div class="flower-card">
+            <img src="./images/lily.jpg" alt="Lilies">
+            <div class="flower-card-body">
+                <h3>White Lilies</h3>
+                <div class="price">₹249</div>
+                <p>Elegant white lilies with a gentle fragrance — perfect for gifting.</p>
+                <span class="card-tag">🌷 Premium</span>
+            </div>
+        </div>
+        <div class="flower-card">
+            <img src="./images/sunflower.jpg" alt="Sunflowers">
+            <div class="flower-card-body">
+                <h3>Sunflowers</h3>
+                <div class="price">₹179</div>
+                <p>Bold, bright sunflowers that radiate warmth and happiness.</p>
+                <span class="card-tag">🌻 Fresh Pick</span>
+            </div>
+        </div>
+        <div class="flower-card">
+            <img src="./images/tulips.jpg" alt="Tulips">
+            <div class="flower-card-body">
+                <h3>Pink Tulips</h3>
+                <div class="price">₹229</div>
+                <p>Soft pink tulips — a classic spring favourite for every occasion.</p>
+                <span class="card-tag">🌷 Seasonal</span>
+            </div>
+        </div>
+        <div class="flower-card">
+            <img src="./images/blue-blossom.jpg" alt="Blue Blossom">
+            <div class="flower-card-body">
+                <h3>Blue Blossom</h3>
+                <div class="price">₹319</div>
+                <p>Rare and stunning blue blossoms — a unique gift that stands out.</p>
+                <span class="card-tag">💙 Rare</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WAFFLES SECTION -->
+<section class="waffles-section" id="waffles">
+    <div class="section-header" style="text-align:center;margin-bottom:40px">
+        <div class="section-tag" style="background:#ffecd6;color:#e67e22">🧇 WAFFLES</div>
+        <h2 class="section-title">Baked Fresh Every Morning</h2>
+        <p class="section-sub">Golden, crispy, and loaded with flavour — waffles like you've never tasted</p>
+    </div>
+    <div class="waffles-grid">
+        <div class="waffle-card">
+            <img src="./images/classic.jpg" alt="Classic Waffle">
+            <div class="waffle-card-body">
+                <h3>Classic Butter Waffle</h3>
+                <div class="price">₹149</div>
+                <p>The original — crispy on the outside, fluffy inside, served with maple syrup and butter.</p>
+                <span class="waffle-tag">🧇 Classic</span>
+            </div>
+        </div>
+        <div class="waffle-card">
+            <img src="./images/choco-waffle.jpg" alt="Chocolate Waffle">
+            <div class="waffle-card-body">
+                <h3>Choco Delight Waffle</h3>
+                <div class="price">₹189</div>
+                <p>Rich chocolate batter topped with chocolate sauce and cocoa powder. A chocoholic's dream.</p>
+                <span class="waffle-tag">🍫 Bestseller</span>
+            </div>
+        </div>
+        <div class="waffle-card">
+            <img src="./images/strawberry-waffle.jpg" alt="Strawberry Waffle">
+            <div class="waffle-card-body">
+                <h3>Strawberry Bliss</h3>
+                <div class="price">₹199</div>
+                <p>Fresh strawberries, whipped cream and strawberry syrup on a golden waffle base.</p>
+                <span class="waffle-tag">🍓 Fresh</span>
+            </div>
+        </div>
+        <div class="waffle-card">
+            <img src="./images/buttermilk-honey.jpg" alt="Buttermilk Honey Waffle">
+            <div class="waffle-card-body">
+                <h3>Buttermilk Honey</h3>
+                <div class="price">₹169</div>
+                <p>Fluffy buttermilk waffle drizzled with pure organic honey and a sprinkle of cinnamon.</p>
+                <span class="waffle-tag">🍯 Fan Favourite</span>
+            </div>
+        </div>
+        <div class="waffle-card">
+            <img src="./images/protein-fun.jpg" alt="Protein Waffle">
+            <div class="waffle-card-body">
+                <h3>Protein Power Waffle</h3>
+                <div class="price">₹219</div>
+                <p>High-protein waffle with peanut butter, banana slices and a drizzle of dark chocolate.</p>
+                <span class="waffle-tag">💪 Healthy</span>
+            </div>
+        </div>
+        <div class="waffle-card">
+            <img src="./images/whole-wheat.jpg" alt="Whole Wheat Waffle">
+            <div class="waffle-card-body">
+                <h3>Whole Wheat Waffle</h3>
+                <div class="price">₹159</div>
+                <p>A healthier option — whole wheat base with seeds, honey and fresh berries on the side.</p>
+                <span class="waffle-tag">🌾 Healthy</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section" id="why">
+    <div style="text-align:center;margin-bottom:40px">
+        <div class="section-tag">✨ WHY CHOOSE US</div>
+        <h2 class="section-title">Made with Love, Delivered with Care</h2>
+        <p class="section-sub">Here's why customers keep coming back</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature">
+            <div class="feature-icon">🌱</div>
+            <h3>100% Fresh</h3>
+            <p>Flowers picked daily, waffles baked every morning. No compromises on freshness.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🚀</div>
+            <h3>Fast Delivery</h3>
+            <p>Same-day delivery available. Your order reaches you while it's still fresh.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔐</div>
+            <h3>Secure Payments</h3>
+            <p>Pay safely via Razorpay — UPI, cards, net banking all accepted.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">💌</div>
+            <h3>Order Updates</h3>
+            <p>Get email confirmations and track your order status in real time.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <h2>Ready to Order? 🌸🧇</h2>
+    <p>Sign up in seconds and start browsing fresh flowers and warm waffles today.</p>
+    <div class="cta-btns">
+        <a href="customer-login.html" class="btn-white">🛍️ Shop Now</a>
+        <a href="login.html" class="btn-outline-white">🔐 Admin Login</a>
+    </div>
+</section>
+
+<!-- BMC STRIP -->
+<div class="bmc-strip">
+    📊 Curious about how we operate? <a href="bmc.html">View our Business Model Canvas →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>Made with <span>❤️</span> by Flowers & Waffles · Freshly Picked · Freshly Baked · 2026</p>
+</footer>
+
+</body>
+</html>

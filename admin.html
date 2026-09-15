@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | Flowers & Waffles</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { display: flex; flex-direction: column; min-height: 100vh; background: #f8f0f4; font-family: Arial, sans-serif; text-align: left; }
+
+        /* TOP NAV */
+        .topnav {
+            background: #ff4d6d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .topnav h1 { font-size: 1.3rem; }
+        .topnav .nav-btns { display: flex; gap: 10px; }
+        .topnav button { background: white; color: #ff4d6d; padding: 7px 16px; border-radius: 20px; font-weight: bold; border: none; cursor: pointer; }
+        .topnav button:hover { background: #ffe0e6; }
+
+        /* LAYOUT */
+        .layout { display: flex; flex: 1; }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.07);
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-btn {
+            padding: 14px 25px;
+            border: none;
+            background: none;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #555;
+            border-left: 4px solid transparent;
+            transition: 0.2s;
+            border-radius: 0;
+        }
+        .sidebar-btn:hover { background: #fff0f5; color: #ff4d6d; }
+        .sidebar-btn.active { background: #fff0f5; color: #ff4d6d; border-left-color: #ff4d6d; font-weight: bold; }
+
+        /* MAIN CONTENT */
+        .main { flex: 1; padding: 30px; overflow-y: auto; }
+
+        /* SECTIONS */
+        .section { display: none; }
+        .section.active { display: block; }
+        .section h2 { color: #ff4d6d; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #ffd6e0; padding-bottom: 10px; }
+
+        /* ADD PRODUCT FORM */
+        .add-form {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 480px;
+        }
+        .add-form input {
+            display: block;
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 0.95rem;
+        }
+        .add-form input:focus { border-color: #ff8fab; outline: none; }
+        .add-form button { width: 100%; padding: 11px; font-size: 1rem; border-radius: 10px; margin-top: 5px; }
+        .form-msg { margin-top: 10px; font-size: 0.9rem; }
+        .form-msg.success { color: #27ae60; }
+        .form-msg.error { color: #e74c3c; }
+
+        /* PRODUCT GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .product-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+        .product-card h3 { font-size: 0.95rem; margin-bottom: 5px; color: #333; }
+        .product-card .price { color: #ff4d6d; font-weight: bold; margin-bottom: 5px; }
+        .product-card .desc { font-size: 0.8rem; color: #888; margin-bottom: 12px; }
+        .card-actions { display: flex; gap: 8px; justify-content: center; }
+        .btn-edit { background: #ffd6e0; color: #ff4d6d; border: none; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
+        .btn-delete { background: #ffe0e0; color: #c0392b; border: none; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
+        .btn-edit:hover { background: #ffb3c6; }
+        .btn-delete:hover { background: #ffb3b3; }
+
+        /* ORDERS TABLE */
+        .orders-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .orders-table th { background: #ff4d6d; color: white; padding: 12px 15px; text-align: left; font-size: 0.9rem; }
+        .orders-table td { padding: 12px 15px; border-bottom: 1px solid #f0e0e5; font-size: 0.9rem; vertical-align: top; }
+        .orders-table tr:last-child td { border-bottom: none; }
+        .orders-table tr:hover td { background: #fff5f7; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .status-Pending { background: #fff3cd; color: #856404; }
+        .status-Processing { background: #cfe2ff; color: #084298; }
+        .status-Delivered { background: #d1e7dd; color: #0a3622; }
+        .status-select { border: 1px solid #ddd; border-radius: 8px; padding: 4px 8px; font-size: 0.85rem; cursor: pointer; }
+
+        /* STATS */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .stat-card .stat-num { font-size: 2rem; font-weight: bold; color: #ff4d6d; }
+        .stat-card .stat-label { color: #888; font-size: 0.9rem; margin-top: 5px; }
+
+        /* EDIT MODAL */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; justify-content: center; align-items: center; }
+        .modal-overlay.open { display: flex; }
+        .modal { background: white; border-radius: 20px; padding: 30px; width: 380px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+        .modal h3 { color: #ff4d6d; margin-bottom: 15px; }
+        .modal img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; }
+        .modal input { display: block; width: 100%; margin-bottom: 10px; padding: 9px 13px; border: 1px solid #ddd; border-radius: 8px; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
+        .modal-actions button { flex: 1; padding: 10px; border-radius: 10px; }
+        .btn-cancel { background: #eee; color: #555; border: none; cursor: pointer; }
+        .log-line { padding: 6px 10px; border-radius: 6px; margin-bottom: 4px; font-size: 0.8rem; }
+        .log-FAILED { background: #fff0f0; color: #c0392b; border-left: 3px solid #e74c3c; }
+        .log-BLOCKED { background: #ffe8e8; color: #922b21; border-left: 3px solid #c0392b; font-weight: bold; }
+        .log-SUCCESS { background: #f0fff4; color: #1e8449; border-left: 3px solid #27ae60; }
+        .log-SIGNUP { background: #f0f4ff; color: #1a5276; border-left: 3px solid #2980b9; }
+        .log-ADMIN { background: #fdf5e6; color: #7d6608; border-left: 3px solid #f39c12; }
+        .blocked-badge { display:inline-block; background:#ffe8e8; color:#c0392b; border:1px solid #e74c3c; border-radius:8px; padding:8px 16px; margin:5px; font-size:0.85rem; }
+    </style>
+</head>
+<body>
+
+<script>
+    if (localStorage.getItem("admin") !== "true") {
+        alert("Access denied ❌");
+        window.location.href = "login.html";
+    }
+</script>
+
+<!-- TOP NAV -->
+<div class="topnav">
+    <h1>🌸 Admin Panel</h1>
+    <div class="nav-btns">
+        <button onclick="window.location.href='index.html'">🏠 View Site</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <button class="sidebar-btn active" onclick="showSection('dashboard')">📊 Dashboard</button>
+        <button class="sidebar-btn" onclick="showSection('add')">➕ Add Product</button>
+        <button class="sidebar-btn" onclick="showSection('products')">🧇 Manage Products</button>
+        <button class="sidebar-btn" onclick="showSection('orders')">📦 Orders</button>
+        <button class="sidebar-btn" onclick="showSection('security')">🔐 Security Logs</button>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- DASHBOARD -->
+        <div class="section active" id="section-dashboard">
+            <h2>📊 Dashboard</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-num" id="stat-products">—</div><div class="stat-label">Total Products</div></div>
+                <div class="stat-card"><div class="stat-num" id="stat-orders">—</div><div class="stat-label">Total Orders</div></div>
+                <div class="stat-card"><div class="stat-num" id="stat-pending">—</div><div class="stat-label">Pending Orders</div></div>
+                <div class="stat-card"><div class="stat-num" id="stat-revenue">—</div><div class="stat-label">Total Revenue ₹</div></div>
+            </div>
+            <p style="color:#aaa; font-size:0.9rem;">Welcome back, Admin! 🌸 Use the sidebar to manage your store.</p>
+        </div>
+
+        <!-- ADD PRODUCT -->
+        <div class="section" id="section-add">
+            <h2>➕ Add New Product</h2>
+            <div class="add-form">
+                <input type="text" id="name" placeholder="Product Name *">
+                <input type="number" id="price" placeholder="Price (₹) *">
+                <input type="text" id="image" placeholder="Image path (e.g. ./images/rose.jpg) *">
+                <input type="text" id="description" placeholder="Description">
+                <button onclick="addProduct()">Add Product 🌸</button>
+                <p class="form-msg" id="addMsg"></p>
+            </div>
+        </div>
+
+        <!-- MANAGE PRODUCTS -->
+        <div class="section" id="section-products">
+            <h2>🧇 Manage Products</h2>
+            <div class="products-grid" id="admin-products"></div>
+        </div>
+
+        <!-- ORDERS -->
+        <div class="section" id="section-orders">
+            <h2>📦 All Orders</h2>
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Phone</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-tbody"></tbody>
+            </table>
+        </div>
+
+        <!-- SECURITY LOGS -->
+        <div class="section" id="section-security">
+            <h2>🔐 Security Logs</h2>
+
+            <!-- Blocked IPs -->
+            <div style="background:white;border-radius:12px;padding:20px;margin-bottom:25px;box-shadow:0 4px 15px rgba(0,0,0,0.08)">
+                <h3 style="color:#e74c3c;margin:0 0 15px">🚫 Currently Blocked IPs</h3>
+                <div id="blocked-ips"><p style="color:#aaa">Loading...</p></div>
+            </div>
+
+            <!-- Log entries -->
+            <div style="background:white;border-radius:12px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.08)">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
+                    <h3 style="color:#ff4d6d;margin:0">📋 Recent Activity (Last 100 entries)</h3>
+                    <button onclick="loadSecurityLogs()" style="padding:6px 14px;font-size:0.85rem">🔄 Refresh</button>
+                </div>
+                <div id="security-logs" style="font-family:monospace;font-size:0.82rem;max-height:500px;overflow-y:auto"></div>
+            </div>
+        </div>
+
+
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <h3>✏️ Edit Product</h3>
+        <img id="previewImg" src="" alt="preview">
+        <input type="text" id="editName" placeholder="Name">
+        <input type="number" id="editPrice" placeholder="Price">
+        <input type="text" id="editImage" placeholder="Image Path">
+        <input type="text" id="editDesc" placeholder="Description">
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeEdit()">Cancel</button>
+            <button onclick="updateProduct()">Update ✅</button>
+        </div>
+    </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
